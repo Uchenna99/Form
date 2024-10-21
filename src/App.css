@@ -23,7 +23,7 @@ form{
     gap: 30px;
     background-color: beige;
 }
-form > input{
+input{
     width: 400px;
     height: 50px;
     border-radius: 10px;
@@ -33,6 +33,11 @@ form > input{
     color: black;
     font-size: 20px;
     padding: 0 20px;
+}
+
+input:hover{
+    transition: 300ms;
+    box-shadow: 0 0 10px lightgray;
 }
 
 button{
