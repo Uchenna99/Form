@@ -2,6 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .form-body{
@@ -33,7 +34,6 @@ input{
     color: black;
     font-size: 20px;
     padding: 0 20px;
-    position: relative;
 }
 
 input:hover{
@@ -48,6 +48,7 @@ button{
     background-color: lightgray;
     font-weight: 600;
     font-size: 18px;
+    color: rgba(0, 0, 0, 0.651);
 }
 
 button:hover{
@@ -61,11 +62,16 @@ button:hover{
     width: fit-content;
     height: fit-content;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
     position: relative;
 }
 
 #eye{
     position: absolute;
     right: 20px;
+}
+
+p#err-p{
+    color: red;
 }
