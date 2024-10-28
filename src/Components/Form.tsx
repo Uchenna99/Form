@@ -13,13 +13,12 @@ export const Form =()=>{
     }
 
 
-    const {register, handleSubmit, formState: {errors}} = useForm<FormData>(); 
+    const {register, handleSubmit, formState: {errors, isValid}} = useForm<FormData>(); 
      
       
 
     const onSubmit =(data: FieldValues)=>{
         console.log(data)
-        
     }
 
     return (
@@ -56,7 +55,7 @@ export const Form =()=>{
                         
                     </div>
 
-                    <button type="submit" >Submit Form</button>
+                    <button disabled={!isValid} type="submit" >Submit Form</button>
                 </form>
             </div>
         </>
