@@ -70,6 +70,7 @@ button:hover{
 #eye{
     position: absolute;
     right: 20px;
+    top: 17px;
 }
 
 p#err-p{
