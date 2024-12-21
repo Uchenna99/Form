@@ -5,56 +5,88 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.form-body{
+
+.page-wrap{
     width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    height: fit-content;
 }
 
 
-form{
+
+.add-user-section{
     width: 100%;
-    height: 100vh;
+    height: 700px;
+    padding: 40px 15% 40px 20px;
+    display: flex;
+    justify-content: end;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.373);
+    background-blend-mode: darken;
+    background-image: url(./assets/Images/Thor.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: right;
+}
+
+
+
+
+.form{
+    width: 550px;
+    height: fit-content;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 30px;
-    background-color: beige;
+    background-color: rgba(220, 221, 245, 0.437);
+    padding: 20px;
+    border-radius: 10px;
 }
+
+.form:hover{
+    transition: 400ms;
+    scale: 1.02;
+}
+
+
+
+
 input{
     width: 400px;
     height: 50px;
     border-radius: 10px;
     border: none;
     outline: 1px solid darkgray;
-    background-color: lightgray;
+    background-color: rgba(211, 211, 211, 0.656);
     color: black;
     font-size: 20px;
     padding: 0 20px;
 }
 
+input::placeholder{
+    color: black;
+}
+
 input:hover{
     transition: 300ms;
-    box-shadow: 0 0 10px lightgray;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.607);
 }
 
 button{
     padding: 10px 30px;
-    border-radius: 15px;
+    border-radius: 10px;
     border: none;
     background-color: lightgray;
     font-weight: 600;
     font-size: 18px;
-    color: rgba(0, 0, 0, 0.651);
+    color: rgba(0, 0, 0, 0.675);
 }
 
 button:hover{
     transition: 300ms;
-    padding: 13px 35px;
     background-color: darkgray;
+    color: black;
 }
 
 
@@ -75,4 +107,38 @@ button:hover{
 
 p#err-p{
     color: red;
+}
+
+
+
+
+
+
+.users-display-section{
+    width: 100%;
+    height: fit-content;
+    padding: 50px 20px;
+    background-color: lightsteelblue;
+    display: flex;
+    justify-content: center;
+}
+
+
+.user-grid{
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 0.5fr 3fr 3fr 3.5fr;
+    grid-template-rows: auto;
+    gap: 5px;
+}
+
+
+.grid-header{
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid black;
+
 }
