@@ -154,7 +154,7 @@ p#err-p{
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.075);
+    background-color: rgba(0, 0, 0, 0.507);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -164,7 +164,7 @@ p#err-p{
 .modal{
     width: fit-content;
     height: fit-content;
-    background-color: rgba(176, 196, 222, 0.251);
+    background-color: rgba(176, 196, 222, 0.453);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -186,7 +186,6 @@ p#err-p{
 
 #modal-close:hover{
     color: red;
-    box-shadow: 0 0 5px rgba(255, 0, 0, 0.393);
 }
 
 

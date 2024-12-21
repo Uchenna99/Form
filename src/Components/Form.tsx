@@ -9,12 +9,13 @@ import { base_users_url } from "../URL";
 
 export const Form =()=>{
     const baseForm: FormData = {firstName:'', lastName:'', email:'', password:''}
-    const baseUser: UserData = {id:1, firstName:'John', lastName:'Doe', email:'jd@test.com'}
+    // const baseUser: UserData = {id:1, firstName:'John', lastName:'Doe', email:'jd@test.com'}
 
     const [users, setUsers] = useState<UserData[]>([]);
     const [forminfo, setForminfo] = useState<FormData>(baseForm);
     const [refresh, setRefresh] = useState(false);
-    const [selected, setSelected] = useState<UserData>(baseUser)
+    const [selected, setSelected] = useState<UserData>();
+    const [modal, setModal] = useState(false);
 
     useEffect(()=>{
         const getUsers = async ()=>{
@@ -48,6 +49,13 @@ export const Form =()=>{
             console.error('Unexpected Error:', error);
           }
         }
+      };
+
+      const handleDelete = async (id: number)=>{
+        await axios.delete(`${base_users_url}/${id}`)
+        .then(()=>setRefresh(!refresh));
+        console.log("User deleted");
+        
       };
 
     return (
@@ -88,28 +96,11 @@ export const Form =()=>{
 
                         {
                             users.map((user)=>(
-                                <div className="grid-header" key={user.email} onClick={()=>setSelected(user)}>
+                                <div className="grid-header" key={user.email} onClick={()=>{setSelected(user); setModal(true);}}>
                                     <p> {user.id} </p>
                                     <p style={{overflow:'hidden'}}> {user.firstName} </p>
                                     <p style={{overflow:'hidden'}}> {user.lastName} </p>
                                     <p style={{overflow:'hidden'}}> {user.email} </p>
-
-                                    <div className="pop-up">
-                                        <div className="modal">
-                                            <TfiClose id="modal-close" />
-
-                                            <div className="modal-info">
-                                                <p> Name: {selected?.firstName} {selected?.lastName} </p>
-                                                
-                                            </div>
-                                            <div className="modal-info">
-                                                <p> E-mail:  </p>
-                                                <p>{selected?.email}</p>
-                                            </div>
-                                            
-                                            <button id="delete">Delete User</button>
-                                        </div>
-                                    </div>
                                 </div>
                             ))
                         }
@@ -120,7 +111,22 @@ export const Form =()=>{
                         users.length == 0 && 
                         <h3>No user found.</h3>
                     }
-                    
+                </div>
+
+                <div className="pop-up" style={{display: modal? 'flex':'none'}}>
+                    <div className="modal">
+                        <TfiClose id="modal-close" onClick={()=>setModal(false)}/>
+
+                        <div className="modal-info">
+                            <p> Name: {selected?.firstName} {selected?.lastName} </p>
+                            
+                        </div>
+                        <div className="modal-info">
+                            <p> E-mail: {selected?.email} </p>
+                        </div>
+                        
+                        <button id="delete" onClick={()=>{handleDelete(selected!.id); setModal(false)}}>Delete User</button>
+                    </div>
                 </div>
             </div>
         </>
