@@ -135,9 +135,10 @@ p#err-p{
 
 
 .grid-header{
-    height: 40px;
+    height: fit-content;
     display: grid;
     grid-template-columns: 0.5fr 3fr 3fr 3.5fr;
+    column-gap: 15px;
     align-items: center;
     padding: 10px;
     border: 1px solid black;
@@ -166,8 +167,5 @@ p#err-p{
     }
     .users-display-section{
         padding: 40px 20px;
-    }
-    .grid-header{
-        grid-template-columns: 0.5fr 3fr 3fr;
     }
 }

@@ -11,6 +11,7 @@ export const Form =()=>{
 
     const [users, setUsers] = useState<UserData[]>([]);
     const [forminfo, setForminfo] = useState<FormData>(baseForm);
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(()=>{
         const getUsers = async ()=>{
@@ -20,7 +21,7 @@ export const Form =()=>{
             )
         };
         getUsers();
-    },[]);
+    },[refresh]);
 
     const [visibility, setVisibility] = useState(false)
 
@@ -35,6 +36,7 @@ export const Form =()=>{
           .then(res => {
             console.log(res.data);
             setForminfo(baseForm);
+            setRefresh(!refresh);
           })
         } catch (error: any) {
           if (axios.isAxiosError(error)) {
@@ -85,14 +87,15 @@ export const Form =()=>{
                             users.map((user)=>(
                                 <div className="grid-header" key={user.email}>
                                     <p> {user.id} </p>
-                                    <p> {user.firstName} </p>
-                                    <p> {user.lastName} </p>
-                                    <p> {user.email} </p>
+                                    <p style={{overflow:'hidden'}}> {user.firstName} </p>
+                                    <p style={{overflow:'hidden'}}> {user.lastName} </p>
+                                    <p style={{overflow:'hidden'}}> {user.email} </p>
                                 </div>
                             ))
                         }
                         </div>
                     }
+
                     {
                         users.length == 0 && 
                         <h3>No user found.</h3>
