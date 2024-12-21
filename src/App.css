@@ -142,9 +142,74 @@ p#err-p{
     align-items: center;
     padding: 10px;
     border: 1px solid black;
-
+    position: relative;
 }
 
+
+
+.pop-up{
+    position: fixed;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.075);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.modal{
+    width: fit-content;
+    height: fit-content;
+    background-color: rgba(176, 196, 222, 0.251);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    padding: 50px ;
+    position: relative;
+}
+
+
+#modal-close{
+    font-size: 20px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    z-index: 5;
+    transition: 300ms;
+}
+
+#modal-close:hover{
+    color: red;
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.393);
+}
+
+
+.modal-info{
+    width: fit-content;
+    height: fit-content;
+    padding: 8px 15px;
+    background-color: whitesmoke;
+    display: flex;
+    border-radius: 6px;
+}
+
+
+#delete{
+    background-color: rgba(255, 0, 0, 0.303);
+    color: white;
+    transition: 300ms;
+}
+
+#delete:hover{
+    background-color: red;
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.481);
+}
 
 
 

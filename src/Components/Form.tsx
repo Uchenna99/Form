@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { TfiClose } from "react-icons/tfi";
 import { FormData, UserData } from "./FormObject";
 import axios from "axios";
 import { base_users_url } from "../URL";
@@ -8,10 +9,12 @@ import { base_users_url } from "../URL";
 
 export const Form =()=>{
     const baseForm: FormData = {firstName:'', lastName:'', email:'', password:''}
+    const baseUser: UserData = {id:1, firstName:'John', lastName:'Doe', email:'jd@test.com'}
 
     const [users, setUsers] = useState<UserData[]>([]);
     const [forminfo, setForminfo] = useState<FormData>(baseForm);
     const [refresh, setRefresh] = useState(false);
+    const [selected, setSelected] = useState<UserData>(baseUser)
 
     useEffect(()=>{
         const getUsers = async ()=>{
@@ -85,11 +88,28 @@ export const Form =()=>{
 
                         {
                             users.map((user)=>(
-                                <div className="grid-header" key={user.email}>
+                                <div className="grid-header" key={user.email} onClick={()=>setSelected(user)}>
                                     <p> {user.id} </p>
                                     <p style={{overflow:'hidden'}}> {user.firstName} </p>
                                     <p style={{overflow:'hidden'}}> {user.lastName} </p>
                                     <p style={{overflow:'hidden'}}> {user.email} </p>
+
+                                    <div className="pop-up">
+                                        <div className="modal">
+                                            <TfiClose id="modal-close" />
+
+                                            <div className="modal-info">
+                                                <p> Name: {selected?.firstName} {selected?.lastName} </p>
+                                                
+                                            </div>
+                                            <div className="modal-info">
+                                                <p> E-mail:  </p>
+                                                <p>{selected?.email}</p>
+                                            </div>
+                                            
+                                            <button id="delete">Delete User</button>
+                                        </div>
+                                    </div>
                                 </div>
                             ))
                         }
