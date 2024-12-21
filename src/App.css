@@ -25,7 +25,7 @@
     background-image: url(./assets/Images/Thor.png);
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: right;
+    background-position: center;
 }
 
 
@@ -53,7 +53,7 @@
 
 
 input{
-    width: 400px;
+    width: 100%;
     height: 50px;
     border-radius: 10px;
     border: none;
@@ -142,4 +142,32 @@ p#err-p{
     padding: 10px;
     border: 1px solid black;
 
+}
+
+
+
+
+
+
+
+
+
+
+/* RESPONSIVENESS */
+
+@media screen and (max-width: 770px) {
+    .add-user-section{
+        height: 600px;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+    .form{
+        width: 100%;
+    }
+    .users-display-section{
+        padding: 40px 20px;
+    }
+    .grid-header{
+        grid-template-columns: 0.5fr 3fr 3fr;
+    }
 }

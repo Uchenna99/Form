@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { FormData, UserData } from "./FormObject";
 import axios from "axios";
+import { base_users_url } from "../URL";
 
 
 
@@ -13,7 +14,7 @@ export const Form =()=>{
 
     useEffect(()=>{
         const getUsers = async ()=>{
-            await axios.get<UserData[]>('http://localhost:3010/api/v1/users')
+            await axios.get<UserData[]>(base_users_url)
             .then(res => setUsers(res.data))
             .catch(err => console.log(err)
             )
@@ -30,8 +31,11 @@ export const Form =()=>{
 
     const handleSubmit = async () => {        
         try {
-          const response = await axios.post('http://localhost:3010/api/v1/users', forminfo);
-          console.log(response.data);
+          await axios.post(base_users_url, forminfo)
+          .then(res => {
+            console.log(res.data);
+            setForminfo(baseForm);
+          })
         } catch (error: any) {
           if (axios.isAxiosError(error)) {
             console.error('Axios Error:', error.response?.data);
@@ -67,16 +71,17 @@ export const Form =()=>{
                 </div>
 
                 <div className="users-display-section">
-                    <div className="user-grid">
-                        <div className="grid-header">
-                            <h3>ID</h3>
-                            <h3>FIRST NAME</h3>
-                            <h3>LAST NAME</h3>
-                            <h3>E-MAIL</h3>
-                        </div>
+                    {
+                        users.length > 0 &&
+                        <div className="user-grid">
+                            <div className="grid-header">
+                                <h3>ID</h3>
+                                <h3>FIRST NAME</h3>
+                                <h3>LAST NAME</h3>
+                                <h3>E-MAIL</h3>
+                            </div>
 
                         {
-                            users?
                             users.map((user)=>(
                                 <div className="grid-header" key={user.email}>
                                     <p> {user.id} </p>
@@ -85,10 +90,14 @@ export const Form =()=>{
                                     <p> {user.email} </p>
                                 </div>
                             ))
-                            :
-                            <h3> No user found. </h3>
                         }
-                    </div>
+                        </div>
+                    }
+                    {
+                        users.length == 0 && 
+                        <h3>No user found.</h3>
+                    }
+                    
                 </div>
             </div>
         </>
