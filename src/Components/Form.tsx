@@ -87,7 +87,7 @@ export const Form =()=>{
                     {
                         users.length > 0 &&
                         <div className="user-grid">
-                            <div className="grid-header">
+                            <div className="grid-header-main">
                                 <h3>ID</h3>
                                 <h3>FIRST NAME</h3>
                                 <h3>LAST NAME</h3>

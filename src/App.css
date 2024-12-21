@@ -134,6 +134,19 @@ p#err-p{
 }
 
 
+.grid-header-main{
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 0.5fr 3fr 3fr 3.5fr;
+    column-gap: 15px;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid black;
+    position: relative;
+    transition: 400ms;
+}
+
+
 .grid-header{
     height: fit-content;
     display: grid;
@@ -143,8 +156,13 @@ p#err-p{
     padding: 10px;
     border: 1px solid black;
     position: relative;
+    transition: 400ms;
 }
 
+.grid-header:hover{
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.603);
+    cursor: pointer;
+}
 
 
 .pop-up{
