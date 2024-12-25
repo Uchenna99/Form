@@ -226,6 +226,7 @@ p#err-p{
 #delete:hover{
     background-color: red;
     box-shadow: 0 0 5px rgba(255, 0, 0, 0.481);
+    cursor: pointer;
 }
 
 

@@ -58,6 +58,12 @@ export const Form =()=>{
         
       };
 
+      if(modal){
+        document.body.style.overflow = "hidden";
+      }else{
+        document.body.style.overflow = "auto";
+      }
+
     return (
         <>
             <div className="page-wrap">
