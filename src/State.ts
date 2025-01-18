@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Tokens, UserData } from "./Components/FormObject";
+import { DecodedUser, Tokens, UserData } from "./Components/FormObject";
 
 interface StateProps{
     tokens: Tokens | null;
@@ -8,6 +8,8 @@ interface StateProps{
     setRefresh: (refresh: boolean)=>void;
     users: UserData[];
     setUsers:(users: UserData[])=>void;
+    decodedToken: DecodedUser | null;
+    setDecodedToken: (decodedToken: DecodedUser)=>void;
 }
 
 const useGlobalState = create<StateProps>((set)=>({
@@ -16,7 +18,9 @@ const useGlobalState = create<StateProps>((set)=>({
     refresh: false,
     setRefresh: (refresh: boolean)=> set({refresh}),
     users: [],
-    setUsers: (users: UserData[])=> set({users})
+    setUsers: (users: UserData[])=> set({users}),
+    decodedToken: null,
+    setDecodedToken: (decodedToken: DecodedUser)=> set({decodedToken})
 }));
 
 

@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { LoginFormData } from "./FormObject";
+import { DecodedUser, LoginFormData } from "./FormObject";
 import axios from "axios";
 import { login_url } from "../URL";
 import useGlobalState from "../State";
+import { jwtDecode } from "jwt-decode";
 
 interface Props{
     show: ()=>void;
@@ -10,7 +11,7 @@ interface Props{
 
 
 const Login = ({ show }:Props) => {
-    const {setTokens, setRefresh, refresh} = useGlobalState();
+    const {setTokens, tokens, setDecodedToken} = useGlobalState();
     const baseForm: LoginFormData = { email:'', password:'' };
     const [forminfo, setForminfo] = useState<LoginFormData>(baseForm);
 
@@ -20,9 +21,14 @@ const Login = ({ show }:Props) => {
             await axios.post(login_url, forminfo)
             .then(res => {
                 setTokens(res.data);
-                setForminfo(baseForm);
-                setRefresh(!refresh);
+                tokens?.accessToken && setForminfo(baseForm);
             })
+            if(tokens?.accessToken){
+                const decode: DecodedUser = jwtDecode(tokens.accessToken);
+                setDecodedToken(decode)
+                console.log(decode);
+                
+            }
             
         } catch (error) {
             console.error('login failed:', error);
@@ -31,15 +37,16 @@ const Login = ({ show }:Props) => {
     };
     
     
+    
   return (
     <>
         <div className="form">
 
-            <input type="email" placeholder="E-mail"
+            <input id="email-inp" type="email" placeholder="E-mail"
             value={forminfo.email} 
             onChange={(e)=> { setForminfo({...forminfo, email: e.target.value})}}/>
             
-            <input type="password" placeholder="Password"
+            <input id="password-inp" type="password" placeholder="Password"
             value={forminfo.password} 
             onChange={(e)=> setForminfo({...forminfo, password: e.target.value})}/>
 

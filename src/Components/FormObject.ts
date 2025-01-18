@@ -24,3 +24,11 @@ export interface Tokens{
     accessToken: string;
     refreshToken: string;
 }
+
+export interface DecodedUser{
+    id: number;
+    name: string;
+    role: 'ADMIN' | 'USER' | 'INSTRUCTOR';
+    iat: number;
+    exp: number;
+}

@@ -15,7 +15,6 @@ export const Form =()=>{
     const { users, setUsers, tokens } = useGlobalState();
     const baseForm: FormData = {firstName:'', lastName:'', email:'', password:''}
 
-    // const [users, setUsers] = useState<UserData[]>([]);
     const [forminfo, setForminfo] = useState<FormData>(baseForm);
     const [selected, setSelected] = useState<UserData>();
     const [modal, setModal] = useState(false);
@@ -77,19 +76,19 @@ export const Form =()=>{
                     {
                         formShow === 'signup' &&
                         <div className="form">
-                            <input type="text" placeholder="First Name"
+                            <input id="firstname-inp" type="text" placeholder="First Name"
                             value={forminfo.firstName} 
                             onChange={(e)=> setForminfo({...forminfo, firstName: e.target.value})}/>
 
-                            <input type="text" placeholder="Last Name"
+                            <input id="lastname-inp" type="text" placeholder="Last Name"
                             value={forminfo.lastName} 
                             onChange={(e)=> setForminfo({...forminfo, lastName: e.target.value})}/>
 
-                            <input type="email" placeholder="E-mail"
+                            <input id="email-inp" type="email" placeholder="E-mail"
                             value={forminfo.email} 
                             onChange={(e)=> setForminfo({...forminfo, email: e.target.value})}/>
                             
-                            <input type="password" placeholder="Password"
+                            <input id="password-inp" type="password" placeholder="Password"
                             value={forminfo.password} 
                             onChange={(e)=> setForminfo({...forminfo, password: e.target.value})}/>
 
