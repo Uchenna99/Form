@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { TfiClose } from "react-icons/tfi";
 import { FormData, UserData } from "./FormObject";
@@ -6,35 +6,24 @@ import axios from "axios";
 import { base_users_url } from "../URL";
 import Login from "./Login";
 import useGlobalState from "../State";
+import FindUser from "./FindUser";
+import { getUsers, usersAxios } from "../fetch/FetchUsers";
+
 
 
 
 export const Form =()=>{
-    const { tokens, refresh, setRefresh } = useGlobalState();
+    const { users } = useGlobalState();
     const baseForm: FormData = {firstName:'', lastName:'', email:'', password:''}
 
-    const [users, setUsers] = useState<UserData[]>([]);
+    // const [users, setUsers] = useState<UserData[]>([]);
     const [forminfo, setForminfo] = useState<FormData>(baseForm);
     const [selected, setSelected] = useState<UserData>();
     const [modal, setModal] = useState(false);
     const [formShow, setformShow] = useState('signup');
 
-    const usersAxios = axios.create({
-        headers: {
-            Authorization: `Bearer ${tokens?.accessToken}`
-        }
-    });
 
 
-    useEffect(()=>{
-        const getUsers = async ()=>{
-            await usersAxios.get<UserData[]>(base_users_url)
-            .then(res => setUsers(res.data))
-            .catch(err => console.log(err)
-            )
-        };
-        getUsers();
-    },[refresh]);
 
     const [visibility, setVisibility] = useState(false)
 
@@ -49,7 +38,6 @@ export const Form =()=>{
           .then(res => {
             console.log(res.data);
             setForminfo(baseForm);
-            setRefresh(!refresh);
           })
         } catch (error: any) {
           if (axios.isAxiosError(error)) {
@@ -62,7 +50,7 @@ export const Form =()=>{
 
       const handleDelete = async (id: number)=>{
         await usersAxios.delete(`${base_users_url}/${id}`)
-        .then(()=>setRefresh(!refresh));
+        .then(()=>getUsers());
         console.log("User deleted");
         
       };
@@ -108,6 +96,10 @@ export const Form =()=>{
                     }
                     
                 </div>
+
+
+                <FindUser />
+
 
                 <div className="users-display-section">
                     {

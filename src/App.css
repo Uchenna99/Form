@@ -128,6 +128,82 @@ p#err-p{
 
 
 
+.button-selections{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px 20px;
+}
+
+.button-selection-dropdown{
+    width: 100%;
+    /* height: 100px; */
+    position: relative;
+    background-color: whitesmoke;
+    animation: bsd 300ms 1 forwards linear;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bsd-close{
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+
+@keyframes bsd {
+    from{ height: 0; }
+    to{ height: 100px; }
+}
+@keyframes appear {
+    from{ opacity: 0; }
+    to{ opacity: 1; }
+}
+
+.find-user-byId{
+    width: 150px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    opacity: 0;
+    animation: appear 250ms 200ms 1 forwards linear;
+}
+
+input#find-user-inp{
+    height: 40px;
+    background-color: whitesmoke;
+    font-size: 16px;
+}
+
+button#find-user-btn{
+    width: fit-content;
+    height: 35px;
+    padding: 0 25px;
+    font-size: 16px;
+}
+
+
+
+
+
+
+
+
+
 .users-display-section{
     width: 100%;
     height: fit-content;
