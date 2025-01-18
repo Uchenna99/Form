@@ -6,6 +6,12 @@ export interface FormData {
 }
 
 
+export interface LoginFormData {
+    email: string;
+    password: string;
+}
+
+
 export interface UserData {
     id: number;
     firstName: string;

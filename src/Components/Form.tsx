@@ -4,6 +4,7 @@ import { TfiClose } from "react-icons/tfi";
 import { FormData, UserData } from "./FormObject";
 import axios from "axios";
 import { base_users_url } from "../URL";
+import Login from "./Login";
 
 
 
@@ -16,6 +17,7 @@ export const Form =()=>{
     const [refresh, setRefresh] = useState(false);
     const [selected, setSelected] = useState<UserData>();
     const [modal, setModal] = useState(false);
+    const [formShow, setformShow] = useState('signup');
 
     useEffect(()=>{
         const getUsers = async ()=>{
@@ -68,25 +70,36 @@ export const Form =()=>{
         <>
             <div className="page-wrap">
                 <div className="add-user-section">
-                    <div className="form">
-                        <input type="text" placeholder="First Name"
-                        value={forminfo.firstName} 
-                        onChange={(e)=> setForminfo({...forminfo, firstName: e.target.value})}/>
+                    {
+                        formShow === 'signup' &&
+                        <div className="form">
+                            <input type="text" placeholder="First Name"
+                            value={forminfo.firstName} 
+                            onChange={(e)=> setForminfo({...forminfo, firstName: e.target.value})}/>
 
-                        <input type="text" placeholder="Last Name"
-                        value={forminfo.lastName} 
-                        onChange={(e)=> setForminfo({...forminfo, lastName: e.target.value})}/>
+                            <input type="text" placeholder="Last Name"
+                            value={forminfo.lastName} 
+                            onChange={(e)=> setForminfo({...forminfo, lastName: e.target.value})}/>
 
-                        <input type="email" placeholder="E-mail"
-                        value={forminfo.email} 
-                        onChange={(e)=> setForminfo({...forminfo, email: e.target.value})}/>
-                        
-                        <input type="password" placeholder="Password"
-                        value={forminfo.password} 
-                        onChange={(e)=> setForminfo({...forminfo, password: e.target.value})}/>
+                            <input type="email" placeholder="E-mail"
+                            value={forminfo.email} 
+                            onChange={(e)=> setForminfo({...forminfo, email: e.target.value})}/>
+                            
+                            <input type="password" placeholder="Password"
+                            value={forminfo.password} 
+                            onChange={(e)=> setForminfo({...forminfo, password: e.target.value})}/>
 
-                        <button onClick={handleSubmit}>Create User</button>
-                    </div>
+                            <button onClick={handleSubmit}>Create User/ Signup</button>
+
+                            <p>Already have an account? <span onClick={()=>setformShow('login')}>Login</span> </p>
+                        </div>
+                    }
+
+                    {
+                        formShow === 'login' &&
+                        <Login show={()=>setformShow('signup')}/>
+                    }
+                    
                 </div>
 
                 <div className="users-display-section">

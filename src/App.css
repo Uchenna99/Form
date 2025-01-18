@@ -49,6 +49,20 @@
     scale: 1.02;
 }
 
+.form > p{
+    color: white;
+}
+
+span{
+    color: black;
+    font-weight: bold;
+}
+
+span:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 
 
 
