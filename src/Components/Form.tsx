@@ -5,23 +5,30 @@ import { FormData, UserData } from "./FormObject";
 import axios from "axios";
 import { base_users_url } from "../URL";
 import Login from "./Login";
+import useGlobalState from "../State";
 
 
 
 export const Form =()=>{
+    const { tokens, refresh, setRefresh } = useGlobalState();
     const baseForm: FormData = {firstName:'', lastName:'', email:'', password:''}
-    // const baseUser: UserData = {id:1, firstName:'John', lastName:'Doe', email:'jd@test.com'}
 
     const [users, setUsers] = useState<UserData[]>([]);
     const [forminfo, setForminfo] = useState<FormData>(baseForm);
-    const [refresh, setRefresh] = useState(false);
     const [selected, setSelected] = useState<UserData>();
     const [modal, setModal] = useState(false);
     const [formShow, setformShow] = useState('signup');
 
+    const usersAxios = axios.create({
+        headers: {
+            Authorization: `Bearer ${tokens?.accessToken}`
+        }
+    });
+
+
     useEffect(()=>{
         const getUsers = async ()=>{
-            await axios.get<UserData[]>(base_users_url)
+            await usersAxios.get<UserData[]>(base_users_url)
             .then(res => setUsers(res.data))
             .catch(err => console.log(err)
             )
@@ -54,7 +61,7 @@ export const Form =()=>{
       };
 
       const handleDelete = async (id: number)=>{
-        await axios.delete(`${base_users_url}/${id}`)
+        await usersAxios.delete(`${base_users_url}/${id}`)
         .then(()=>setRefresh(!refresh));
         console.log("User deleted");
         
@@ -144,7 +151,7 @@ export const Form =()=>{
                             <p> E-mail: {selected?.email} </p>
                         </div>
                         
-                        <button id="delete" onClick={()=>{handleDelete(selected!.id); setModal(false)}}>Delete User</button>
+                        <button id="delete" onClick={()=>{handleDelete(selected!.id); setModal(false);}}>Delete User</button>
                     </div>
                 </div>
             </div>

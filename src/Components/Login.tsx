@@ -2,31 +2,34 @@ import { useState } from "react";
 import { LoginFormData } from "./FormObject";
 import axios from "axios";
 import { login_url } from "../URL";
+import useGlobalState from "../State";
 
 interface Props{
     show: ()=>void;
 }
 
-interface Tokens{
-    accessToken: string;
-    refreshToken: string;
-}
 
 const Login = ({ show }:Props) => {
-    const [tokens, setTokens] = useState<Tokens | null>(null);
+    const {setTokens, setRefresh, refresh} = useGlobalState();
     const baseForm: LoginFormData = { email:'', password:'' };
     const [forminfo, setForminfo] = useState<LoginFormData>(baseForm);
+
 
     const handleLogin = async ()=>{        
         try {
             await axios.post(login_url, forminfo)
-            .then(res => {setTokens(res.data)})
+            .then(res => {
+                setTokens(res.data);
+                setForminfo(baseForm);
+                setRefresh(!refresh);
+            })
             
         } catch (error) {
             console.error('login failed:', error);
         }
         
     };
+    
     
   return (
     <>

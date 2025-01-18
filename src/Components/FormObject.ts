@@ -18,3 +18,9 @@ export interface UserData {
     lastName: string;
     email: string;
 }
+
+
+export interface Tokens{
+    accessToken: string;
+    refreshToken: string;
+}
