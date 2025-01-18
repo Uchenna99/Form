@@ -7,13 +7,12 @@ import { base_users_url } from "../URL";
 import Login from "./Login";
 import useGlobalState from "../State";
 import FindUser from "./FindUser";
-import { getUsers, usersAxios } from "../fetch/FetchUsers";
 
 
 
 
 export const Form =()=>{
-    const { users } = useGlobalState();
+    const { users, setUsers, tokens } = useGlobalState();
     const baseForm: FormData = {firstName:'', lastName:'', email:'', password:''}
 
     // const [users, setUsers] = useState<UserData[]>([]);
@@ -22,14 +21,24 @@ export const Form =()=>{
     const [modal, setModal] = useState(false);
     const [formShow, setformShow] = useState('signup');
 
-
-
-
     const [visibility, setVisibility] = useState(false)
 
     const visibilityToggle =()=>{
         setVisibility(!visibility)
     }
+
+    const usersAxios = axios.create({
+        headers: {
+            Authorization: `Bearer ${tokens?.accessToken}`
+        }
+    });
+    
+    const getUsers = async ()=>{
+        await usersAxios.get<UserData[]>(base_users_url)
+        .then(res => setUsers(res.data))
+        .catch(err => console.log(err)
+        )
+    };
 
 
     const handleSubmit = async () => {        
