@@ -7,6 +7,7 @@ import { base_users_url } from "../URL";
 import Login from "./Login";
 import useGlobalState from "../State";
 import FindUser from "./FindUser";
+import FetchUsers from "../fetch/FetchUsers";
 
 
 
@@ -73,6 +74,7 @@ export const Form =()=>{
         <>
             <div className="page-wrap">
                 <div className="add-user-section">
+                    <FetchUsers/>
                     {
                         formShow === 'signup' &&
                         <div className="form">
