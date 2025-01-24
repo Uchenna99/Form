@@ -10,8 +10,8 @@ interface StateProps{
     setUsers:(users: UserData[])=>void;
     decodedToken: DecodedUser | null;
     setDecodedToken: (decodedToken: DecodedUser)=>void;
-    sessionUser: any;
-    setSessionUser: (sessionUser: any)=>void;
+    loggedIn: boolean;
+    seloggedIn: (loggedIn: boolean)=>void;
 }
 
 const useGlobalState = create<StateProps>((set)=>({
@@ -23,8 +23,8 @@ const useGlobalState = create<StateProps>((set)=>({
     setUsers: (users: UserData[])=> set({users}),
     decodedToken: null,
     setDecodedToken: (decodedToken: DecodedUser)=> set({decodedToken}),
-    sessionUser: null,
-    setSessionUser: (sessionUser: any)=> set({sessionUser})
+    loggedIn: false,
+    seloggedIn: (loggedIn: boolean)=> set({loggedIn})
 }));
 
 
