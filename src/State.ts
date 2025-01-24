@@ -12,6 +12,8 @@ interface StateProps{
     setDecodedToken: (decodedToken: DecodedUser)=>void;
     loggedIn: boolean;
     seloggedIn: (loggedIn: boolean)=>void;
+    otp: number | null;
+    setOtp: (otp: number)=>void;
 }
 
 const useGlobalState = create<StateProps>((set)=>({
@@ -24,7 +26,9 @@ const useGlobalState = create<StateProps>((set)=>({
     decodedToken: null,
     setDecodedToken: (decodedToken: DecodedUser)=> set({decodedToken}),
     loggedIn: false,
-    seloggedIn: (loggedIn: boolean)=> set({loggedIn})
+    seloggedIn: (loggedIn: boolean)=> set({loggedIn}),
+    otp: null,
+    setOtp: (otp: number)=>set({otp})
 }));
 
 

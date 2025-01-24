@@ -1,10 +1,13 @@
 import axios from 'axios';
 import { useState } from 'react'
 import { FormData } from './FormObject';
-import { base_users_url } from '../URL';
+import { base_users_url, create_user_url } from '../URL';
 import { Link, Navigate } from 'react-router-dom';
+import useGlobalState from '../State';
 
 const SignUp = () => {
+    const {setOtp} = useGlobalState();
+
     const baseForm: FormData = {firstName:'', lastName:'', email:'', password:''}
 
     const [forminfo, setForminfo] = useState<FormData>(baseForm);
@@ -12,9 +15,10 @@ const SignUp = () => {
 
     const handleSubmit = async () => {        
         try {
-          await axios.post(base_users_url, forminfo)
+          await axios.post(create_user_url, forminfo)
           .then(res => {
             console.log(res.data);
+            setOtp(res.data.otp);
             setForminfo(baseForm);
           })
           .then(()=>{alert('Account created successfully')})
