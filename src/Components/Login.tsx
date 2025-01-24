@@ -10,7 +10,7 @@ import { Link, Navigate } from "react-router-dom";
 
 
 const Login = () => {
-    const {setTokens, tokens, setDecodedToken} = useGlobalState();
+    const {setTokens, tokens, setDecodedToken, setloggedIn} = useGlobalState();
     const baseForm: LoginFormData = { email:'', password:'' };
     const [forminfo, setForminfo] = useState<LoginFormData>(baseForm);
     
@@ -21,14 +21,19 @@ const Login = () => {
             await axios.post(login_url, forminfo)
             .then(res => {
                 setTokens(res.data);
-                tokens?.accessToken && setForminfo(baseForm);
             })
-            if(tokens?.accessToken){
+            .then(()=>{
+                if(tokens !== null){
                 const decode: DecodedUser = jwtDecode(tokens.accessToken);
                 setDecodedToken(decode)
-                console.log(decode);
+                console.log(decode);}
+            })
+            .then(()=>{
+                setloggedIn(true);
+                <Navigate to={'/'}/>
+            })
                 
-            }
+            
             
         } catch (error) {
             console.error('login failed:', error);
@@ -64,7 +69,10 @@ const Login = () => {
                     }
                     await axios.post('http://localhost:3010/api/v1/login/google', userData)
                     .then(response => setTokens(response.data))
-                    .then(()=>{<Navigate to={'/'}/>});
+                    .then(()=>{
+                        setloggedIn(true);
+                        <Navigate to={'/'}/>
+                    });
                     }} 
                     text="signin_with"
                     onError={()=>{

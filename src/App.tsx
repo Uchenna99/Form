@@ -7,6 +7,7 @@ import SignUp from './Components/signUp'
 import Login from './Components/Login'
 import useGlobalState from './State'
 import VerifyOtp from './Components/VerifyOtp'
+import { ToastContainer } from 'react-custom-alert'
 
 
 function App() {
@@ -16,14 +17,15 @@ function App() {
     <>
     <GoogleOAuthProvider clientId='468083560111-3cdjf6aso5n8qprqdlubpmeqf2le5quc.apps.googleusercontent.com'>
       <Routes>
-        <Route path='/' element={<Form/>} />
+        <Route path='/' element={loggedIn? <Form/> : <Navigate to={'/login'}/>} />
         <Route path='/signup' element={loggedIn? <Navigate to={'/'}/> : <SignUp/>}/>
         <Route path='/login' element={loggedIn? <Navigate to={'/'}/> : <Login/>} />
         <Route path='/dash' element={loggedIn? <Dashboard/> : <Navigate to={'/login'}/>} />
-        <Route path='/otp/verify' element={<VerifyOtp/>} />
+        <Route path='/verifyotp' element={<VerifyOtp/>} />
       </Routes>
       {/* loggedIn? <Navigate to={'/'}/> : <VerifyOtp/> */}
     </GoogleOAuthProvider>
+    <ToastContainer floatingTime={5000} />
     </>
   )
 }
