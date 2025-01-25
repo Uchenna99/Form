@@ -1,29 +1,30 @@
 import { useState } from "react"
 import useGlobalState from "../State";
-import { Navigate } from "react-router-dom";
+import axios from "axios";
+import { otp_verify_url } from "../URL";
+import { useNavigate } from "react-router-dom";
 
 interface SubmitProp{
-    input: string;
+    email: string;
     otp: string;
 }
 
 const VerifyOtp = () => {
-    const {otp, setOtp} = useGlobalState();
+    const {verifyEmail} = useGlobalState();
+    const navigate = useNavigate();
     const [otpInput, setOtpInput] = useState<string>('');
     
+    const verifyData = {
+        email: verifyEmail,
+        otp: otpInput
+    }
 
-    const handleVerify = async ({input, otp}: SubmitProp)=>{
-        if (otp !== ''){
-            if(otp === input){
-                alert('Verification successful');
-                setOtp('');
-                <Navigate to={'/'}/>
-            }else{
-                alert('Incorrect code')
-            }
-        }else{
-            alert('Unexpected error')
-        }
+    const handleVerify = async (data: SubmitProp)=>{
+        await axios.post(otp_verify_url, data)
+        .then((response)=>{
+            console.log(response);
+            navigate('/');
+        })
     }
 
   return (
@@ -42,7 +43,7 @@ const VerifyOtp = () => {
                     {/* {inpError && <p>Numbers only</p>} */}
                 </div>
 
-                <button onClick={()=>handleVerify({otp: otp, input: otpInput})}>Verify</button>
+                <button onClick={()=>handleVerify(verifyData)}>Verify</button>
 
                 <p style={{color:'red', fontSize:'13px'}}
                 >The code is valid for 10 minutes only</p>

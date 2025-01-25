@@ -1,28 +1,34 @@
 import axios from 'axios';
-import { useState } from 'react'
-import { FormData } from './FormObject';
 import { create_user_url } from '../URL';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useGlobalState from '../State';
 
+interface signUpResponse {
+  error: boolean;
+  message: string;
+  user: {
+    id: number;
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+  };
+}
+
+
 const SignUp = () => {
-    const {setOtp} = useGlobalState();
-
-    
-
-    const [forminfo, setForminfo] = useState<FormData>(baseForm);
-    
+  const navigate = useNavigate();
+    const { forminfo, setForminfo, setVerifyEmail} = useGlobalState();    
 
     const handleSubmit = async () => {        
         try {
           await axios.post(create_user_url, forminfo)
-          .then(res => {
+          .then((res) => {
+            setVerifyEmail(res.data.user.email);
             console.log(res.data);
-            setOtp(res.data.otp);
-            // setForminfo(baseForm);
+            navigate('/verifyotp');
+            alert(res.data.message);
           })
-          .then(()=>{alert('Account created successfully')})
-          .then(()=>{<Navigate to={'/otp/verify'}/>})
         } catch (error: any) {
           if (axios.isAxiosError(error)) {
             console.error('Axios Error:', error.response?.data);

@@ -57,4 +57,20 @@ export interface GoogleTokenPayload {
     picture: string;       // URL to the user's profile picture
     sub: string;           // Subject identifier (unique user ID)
 }
+
+
+export interface ApiResponseUser {
+    id: number;
+    email: string;
+    emailVerified: boolean;
+    firstName: string;
+    lastName: string;
+    password: string;
+    otp: string;
+    otpExpiry: string;
+    role: 'USER' | 'ADMIN' | 'INSTRUCTOR';
+    createdAt: string;
+    updatedAt: string;
+  }
+  
   

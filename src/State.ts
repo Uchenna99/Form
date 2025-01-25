@@ -14,10 +14,10 @@ interface StateProps{
     setDecodedToken: (decodedToken: DecodedUser)=>void;
     loggedIn: boolean;
     setloggedIn: (loggedIn: boolean)=>void;
-    otp: string;
-    setOtp: (otp: string)=>void;
     forminfo: FormData;
     setForminfo: (forminfo: FormData)=>void;
+    verifyEmail: string;
+    setVerifyEmail: (verifyEmail: string)=>void;
 }
 
 const useGlobalState = create<StateProps>((set)=>({
@@ -31,10 +31,10 @@ const useGlobalState = create<StateProps>((set)=>({
     setDecodedToken: (decodedToken: DecodedUser)=> set({decodedToken}),
     loggedIn: false,
     setloggedIn: (loggedIn: boolean)=> set({loggedIn}),
-    otp: '',
-    setOtp: (otp: string)=>set({otp}),
     forminfo: baseForm,
-    setForminfo: (forminfo: FormData)=>set({forminfo})
+    setForminfo: (forminfo: FormData)=>set({forminfo}),
+    verifyEmail: '',
+    setVerifyEmail: (verifyEmail: string)=>set({verifyEmail})
 }));
 
 
