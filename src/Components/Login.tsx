@@ -21,21 +21,13 @@ const Login = () => {
         try {
             await axios.post(login_url, forminfo)
             .then(res => {
-                setTokens(res.data);
-            })
-            .then(()=>{
-                if(tokens !== null){
-                const decode: DecodedUser = jwtDecode(tokens.accessToken);
-                setDecodedToken(decode)
-                console.log(decode);}
-            })
-            .then(()=>{
+                setTokens(res.data);   
+                const userInfo = jwtDecode(res.data.accessToken);
+                setDecodedToken(userInfo as DecodedUser);
+                console.log(tokens);
                 setloggedIn(true);
-                navigate('/');
+                navigate('/')
             })
-                
-            
-            
         } catch (error) {
             console.error('login failed:', error);
         }
@@ -72,7 +64,7 @@ const Login = () => {
                     .then(response => setTokens(response.data))
                     .then(()=>{
                         setloggedIn(true);
-                        <Navigate to={'/'}/>
+                        navigate('/');
                     });
                     }} 
                     text="signin_with"
@@ -82,6 +74,7 @@ const Login = () => {
                 />
 
                 <p>Don't have an account? <Link id="signin-link" to={'/signup'}>Sign Up</Link> </p>
+
 
                 {/* <button onClick={googleSign}>Google Login</button>
 
