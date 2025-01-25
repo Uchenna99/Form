@@ -1,78 +1,67 @@
-import { useState } from "react";
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+// import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 // import { TfiClose } from "react-icons/tfi";
-import { FormData, UserData } from "./FormObject";
-import axios from "axios";
-import { base_users_url } from "../URL";
-import Login from "./Login";
+// import axios from "axios";
+// import { base_users_url } from "../URL";
 import useGlobalState from "../State";
 
 
 
 
 export const Form =()=>{
-    const { users, setUsers, tokens } = useGlobalState();
-    const baseForm: FormData = {firstName:'', lastName:'', email:'', password:''}
+    const { decodedToken } = useGlobalState();
 
-    const [forminfo, setForminfo] = useState<FormData>(baseForm);
-    const [selected, setSelected] = useState<UserData>();
-    const [modal, setModal] = useState(false);
+    // const [selected, setSelected] = useState<UserData>();
+    // const [modal, setModal] = useState(false);
 
-    const [visibility, setVisibility] = useState(false)
-
-    const visibilityToggle =()=>{
-        setVisibility(!visibility)
-    }
-
-    const usersAxios = axios.create({
-        headers: {
-            Authorization: `Bearer ${tokens?.accessToken}`
-        }
-    });
+    // const usersAxios = axios.create({
+    //     headers: {
+    //         Authorization: `Bearer ${tokens?.accessToken}`
+    //     }
+    // });
     
-    const getUsers = async ()=>{
-        await usersAxios.get<UserData[]>(base_users_url)
-        .then(res => setUsers(res.data))
-        .catch(err => console.log(err)
-        )
-    };
+    // const getUsers = async ()=>{
+    //     await usersAxios.get<UserData[]>(base_users_url)
+    //     .then(res => setUsers(res.data))
+    //     .catch(err => console.log(err)
+    //     )
+    // };
 
 
-    const handleSubmit = async () => {        
-        try {
-          await axios.post(base_users_url, forminfo)
-          .then(res => {
-            console.log(res.data);
-            setForminfo(baseForm);
-          })
-        } catch (error: any) {
-          if (axios.isAxiosError(error)) {
-            console.error('Axios Error:', error.response?.data);
-          } else {
-            console.error('Unexpected Error:', error);
-          }
-        }
-      };
+    // const handleSubmit = async () => {        
+    //     try {
+    //       await axios.post(base_users_url, forminfo)
+    //       .then(res => {
+    //         console.log(res.data);
+    //         setForminfo(baseForm);
+    //       })
+    //     } catch (error: any) {
+    //       if (axios.isAxiosError(error)) {
+    //         console.error('Axios Error:', error.response?.data);
+    //       } else {
+    //         console.error('Unexpected Error:', error);
+    //       }
+    //     }
+    //   };
 
-      const handleDelete = async (id: number)=>{
-        await usersAxios.delete(`${base_users_url}/${id}`)
-        .then(()=>getUsers());
-        console.log("User deleted");
+    //   const handleDelete = async (id: number)=>{
+    //     await usersAxios.delete(`${base_users_url}/${id}`)
+    //     .then(()=>getUsers());
+    //     console.log("User deleted");
         
-      };
+    //   };
 
-      if(modal){
-        document.body.style.overflow = "hidden";
-      }else{
-        document.body.style.overflow = "auto";
-      }
+    //   if(modal){
+    //     document.body.style.overflow = "hidden";
+    //   }else{
+    //     document.body.style.overflow = "auto";
+    //   }
 
     return (
         <>
             <div className="page-wrap">
                 <div className="add-user-section">
                         <div className="form">
-                            <h2 style={{textAlign:'center'}}> Welcome to your page {} </h2>
+                            <h2 style={{textAlign:'center'}}> Welcome to your page {decodedToken?.name} </h2>
                         </div>
                 </div>
 
