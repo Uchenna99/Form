@@ -10,7 +10,7 @@ interface SubmitProp{
 }
 
 const VerifyOtp = () => {
-    const {verifyEmail} = useGlobalState();
+    const {verifyEmail, setloggedIn} = useGlobalState();
     const navigate = useNavigate();
     const [otpInput, setOtpInput] = useState<string>('');
     
@@ -20,8 +20,12 @@ const VerifyOtp = () => {
     }
 
     const handleVerify = async (data: SubmitProp)=>{
+        if(otpInput.length !== 6){
+            alert('Invalid OTP');
+        }
         await axios.post(otp_verify_url, data)
         .then((response)=>{
+            setloggedIn(true);
             console.log(response);
             navigate('/');
         })
@@ -32,7 +36,7 @@ const VerifyOtp = () => {
         <div className="verify-background">
             <div className="verify-display-box">
                 <p>
-                    A code has been sent to your email, please check your inbox 
+                    An OTP has been sent to your email, please check your inbox 
                 </p>
                 <div className="verify-input-wrap">
                     <input className='verify-inp' 
@@ -46,7 +50,7 @@ const VerifyOtp = () => {
                 <button onClick={()=>handleVerify(verifyData)}>Verify</button>
 
                 <p style={{color:'red', fontSize:'13px'}}
-                >The code is valid for 10 minutes only</p>
+                >The OTP is valid for 10 minutes only</p>
 
             </div>
         </div>

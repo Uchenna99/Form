@@ -371,7 +371,7 @@ button#find-user-btn{
 .verify-display-box{
     width: 500px;
     height: 350px;
-    background-color:rgba(220, 221, 245, 0.437) ;
+    background-color:whitesmoke ;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
