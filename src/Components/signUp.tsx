@@ -1,14 +1,14 @@
 import axios from 'axios';
 import { useState } from 'react'
 import { FormData } from './FormObject';
-import { base_users_url, create_user_url } from '../URL';
+import { create_user_url } from '../URL';
 import { Link, Navigate } from 'react-router-dom';
 import useGlobalState from '../State';
 
 const SignUp = () => {
     const {setOtp} = useGlobalState();
 
-    const baseForm: FormData = {firstName:'', lastName:'', email:'', password:''}
+    
 
     const [forminfo, setForminfo] = useState<FormData>(baseForm);
     
@@ -19,7 +19,7 @@ const SignUp = () => {
           .then(res => {
             console.log(res.data);
             setOtp(res.data.otp);
-            setForminfo(baseForm);
+            // setForminfo(baseForm);
           })
           .then(()=>{alert('Account created successfully')})
           .then(()=>{<Navigate to={'/otp/verify'}/>})

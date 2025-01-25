@@ -1,5 +1,7 @@
 import { create } from "zustand";
-import { DecodedUser, Tokens, UserData } from "./Components/FormObject";
+import { DecodedUser, FormData, Tokens, UserData } from "./Components/FormObject";
+
+const baseForm: FormData = {firstName:'', lastName:'', email:'', password:''}
 
 interface StateProps{
     tokens: Tokens | null;
@@ -14,6 +16,8 @@ interface StateProps{
     setloggedIn: (loggedIn: boolean)=>void;
     otp: string;
     setOtp: (otp: string)=>void;
+    forminfo: FormData;
+    setForminfo: (forminfo: FormData)=>void;
 }
 
 const useGlobalState = create<StateProps>((set)=>({
@@ -28,7 +32,9 @@ const useGlobalState = create<StateProps>((set)=>({
     loggedIn: false,
     setloggedIn: (loggedIn: boolean)=> set({loggedIn}),
     otp: '',
-    setOtp: (otp: string)=>set({otp})
+    setOtp: (otp: string)=>set({otp}),
+    forminfo: baseForm,
+    setForminfo: (forminfo: FormData)=>set({forminfo})
 }));
 
 
