@@ -10,7 +10,7 @@ interface SubmitProp{
 }
 
 const VerifyOtp = () => {
-    const {verifyEmail, setloggedIn} = useGlobalState();
+    const {verifyEmail} = useGlobalState();
     const navigate = useNavigate();
     const [otpInput, setOtpInput] = useState<string>('');
     
@@ -25,9 +25,10 @@ const VerifyOtp = () => {
         }
         await axios.post(otp_verify_url, data)
         .then((response)=>{
-            setloggedIn(true);
+            // setActiveUser(response.data.user);
             console.log(response);
-            navigate('/');
+            alert(response.data.message)
+            navigate('/login');
         })
     }
 

@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { DecodedUser, FormData, Tokens, UserData } from "./Components/FormObject";
+import { ApiResponseUser, DecodedUser, FormData, Tokens, UserData } from "./Components/FormObject";
 
 const baseForm: FormData = {firstName:'', lastName:'', email:'', password:''}
 
@@ -18,6 +18,8 @@ interface StateProps{
     setForminfo: (forminfo: FormData)=>void;
     verifyEmail: string;
     setVerifyEmail: (verifyEmail: string)=>void;
+    activeUser: ApiResponseUser | null;
+    setActiveUser: (activeUser: ApiResponseUser)=>void;
 }
 
 const useGlobalState = create<StateProps>((set)=>({
@@ -34,7 +36,9 @@ const useGlobalState = create<StateProps>((set)=>({
     forminfo: baseForm,
     setForminfo: (forminfo: FormData)=>set({forminfo}),
     verifyEmail: '',
-    setVerifyEmail: (verifyEmail: string)=>set({verifyEmail})
+    setVerifyEmail: (verifyEmail: string)=>set({verifyEmail}),
+    activeUser: null,
+    setActiveUser: (activeUser: ApiResponseUser)=>set({activeUser})
 }));
 
 

@@ -1,16 +1,17 @@
 import { useState } from "react";
-import { DecodedUser, GoogleAuthResponse, GoogleTokenPayload, LoginFormData } from "./FormObject";
+import { DecodedUser, GoogleTokenPayload, LoginFormData } from "./FormObject";
 import axios from "axios";
 import { login_url } from "../URL";
 import useGlobalState from "../State";
 import { jwtDecode } from "jwt-decode";
 import { GoogleLogin } from "@react-oauth/google";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 
 
 const Login = () => {
     const {setTokens, tokens, setDecodedToken, setloggedIn} = useGlobalState();
+    const navigate = useNavigate();
     const baseForm: LoginFormData = { email:'', password:'' };
     const [forminfo, setForminfo] = useState<LoginFormData>(baseForm);
     
@@ -30,7 +31,7 @@ const Login = () => {
             })
             .then(()=>{
                 setloggedIn(true);
-                <Navigate to={'/'}/>
+                navigate('/');
             })
                 
             

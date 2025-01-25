@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useEffect } from "react";
+import useGlobalState from "../State";
 
 const Dashboard = () => {
+  const {activeUser} = useGlobalState();
 
     useEffect(()=>{
         const fetchUser = async ()=> {
@@ -13,7 +15,7 @@ const Dashboard = () => {
     },[])
 
   return (
-    <div>Welcome to your Dashboard</div>
+    <div>Welcome to your Dashboard {`${activeUser?.firstName} ${activeUser?.lastName}`}</div>
   )
 }
 

@@ -3,17 +3,17 @@ import { create_user_url } from '../URL';
 import { Link, useNavigate } from 'react-router-dom';
 import useGlobalState from '../State';
 
-interface signUpResponse {
-  error: boolean;
-  message: string;
-  user: {
-    id: number;
-    email: string;
-    password: string;
-    firstName: string;
-    lastName: string;
-  };
-}
+// interface signUpResponse {
+//   error: boolean;
+//   message: string;
+//   user: {
+//     id: number;
+//     email: string;
+//     password: string;
+//     firstName: string;
+//     lastName: string;
+//   };
+// }
 
 
 const SignUp = () => {
