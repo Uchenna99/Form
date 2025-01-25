@@ -1,17 +1,31 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import './App.css'
 import { Form } from './Components/Form'
-import Dashboard from './pages/Dashboard'
+import Dashboard from './pages/LandingPage'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import SignUp from './Components/signUp'
 import Login from './Components/Login'
 import useGlobalState from './State'
 import VerifyOtp from './Components/VerifyOtp'
 import { ToastContainer } from 'react-custom-alert'
+import { useEffect } from 'react'
+import { jwtDecode } from 'jwt-decode'
+import { DecodedUser } from './Components/FormObject'
 
 
 function App() {
-  const {loggedIn} = useGlobalState();
+  const {loggedIn, setloggedIn, setDecodedToken} = useGlobalState();
+
+  useEffect(()=>{
+    const loginState = localStorage.getItem('isLoggedIn');
+    const access = localStorage.getItem('token');
+    if(access && loginState === 'true'){
+      const user = jwtDecode(access);
+      setDecodedToken(user as DecodedUser);
+      setloggedIn(true);
+    }
+
+  },[]);
 
   return (
     <>

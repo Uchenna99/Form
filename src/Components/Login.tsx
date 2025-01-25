@@ -5,7 +5,7 @@ import { login_url } from "../URL";
 import useGlobalState from "../State";
 import { jwtDecode } from "jwt-decode";
 import { GoogleLogin } from "@react-oauth/google";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 
@@ -14,8 +14,7 @@ const Login = () => {
     const navigate = useNavigate();
     const baseForm: LoginFormData = { email:'', password:'' };
     const [forminfo, setForminfo] = useState<LoginFormData>(baseForm);
-    
-
+        
 
     const handleLogin = async ()=>{        
         try {
@@ -25,6 +24,8 @@ const Login = () => {
                 const userInfo = jwtDecode(res.data.accessToken);
                 setDecodedToken(userInfo as DecodedUser);
                 console.log(res.data);
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('token', res.data.accessToken)
                 setloggedIn(true);
                 navigate('/')
             })

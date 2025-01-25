@@ -2,13 +2,22 @@
 // import { TfiClose } from "react-icons/tfi";
 // import axios from "axios";
 // import { base_users_url } from "../URL";
+import { useNavigate } from "react-router-dom";
 import useGlobalState from "../State";
 
 
 
 
 export const Form =()=>{
-    const { decodedToken } = useGlobalState();
+    const { decodedToken, setloggedIn } = useGlobalState();
+    const navigate = useNavigate();
+
+    const logout = ()=>{
+        localStorage.removeItem('token');
+        localStorage.setItem('isLoggedIn', 'false');
+        setloggedIn(false);
+        navigate('/login');
+    }
 
     // const [selected, setSelected] = useState<UserData>();
     // const [modal, setModal] = useState(false);
@@ -59,6 +68,7 @@ export const Form =()=>{
     return (
         <>
             <div className="page-wrap">
+                <button id="logout" onClick={logout}>Logout</button>
                 <div className="add-user-section">
                         <div className="form">
                             <h2 style={{textAlign:'center'}}> Welcome to your page {decodedToken?.name} </h2>
