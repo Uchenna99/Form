@@ -10,7 +10,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 
 
 const Login = () => {
-    const {setTokens, tokens, setDecodedToken, setloggedIn} = useGlobalState();
+    const {setTokens, setDecodedToken, setloggedIn} = useGlobalState();
     const navigate = useNavigate();
     const baseForm: LoginFormData = { email:'', password:'' };
     const [forminfo, setForminfo] = useState<LoginFormData>(baseForm);
@@ -24,7 +24,7 @@ const Login = () => {
                 setTokens(res.data);   
                 const userInfo = jwtDecode(res.data.accessToken);
                 setDecodedToken(userInfo as DecodedUser);
-                console.log(tokens);
+                console.log(res.data);
                 setloggedIn(true);
                 navigate('/')
             })
@@ -53,7 +53,6 @@ const Login = () => {
                 <button onClick={handleLogin} >Login</button>
 
                 <GoogleLogin onSuccess={async (res: any)=>{
-                    alert('Login successful');
                     const user = jwtDecode(res.credential) as GoogleTokenPayload;
                     const userData = {
                         firstName: user.given_name,
@@ -61,11 +60,14 @@ const Login = () => {
                         email: user.email
                     }
                     await axios.post('http://localhost:3010/api/v1/login/google', userData)
-                    .then(response => setTokens(response.data))
-                    .then(()=>{
+                    .then(response => {
+                        setTokens(response.data);
+                        const userInfo = jwtDecode(response.data.accessToken);
+                        setDecodedToken(userInfo as DecodedUser);
+                        console.log(userInfo);
                         setloggedIn(true);
                         navigate('/');
-                    });
+                    })
                     }} 
                     text="signin_with"
                     onError={()=>{
