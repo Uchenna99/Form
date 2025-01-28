@@ -2,31 +2,43 @@ import { useEffect, useState } from "react"
 import Profile from "./Profile";
 import useGlobalState from "../../State";
 import axios from "axios";
-import { UserProfile } from "../FormObject";
+import { DecodedUser, UserProfile } from "../FormObject";
 import { base_users_url } from "../../URL";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 const Dashboard = () => {
-    const {userProfile, decodedToken, tokens, setloggedIn} = useGlobalState();
+    const {userProfile, setUserProfile, setloggedIn} = useGlobalState();
     const navigate = useNavigate();
     const [profile, setProfile] = useState(true);
     const [courses, setCourses] = useState(false);
     const [Verification, setVerification] = useState(false);
 
-    const userAxios = axios.create({
-        headers: {
-            Authorization: `Bearer ${tokens?.accessToken}`
-        }
-    })
-
+    
     useEffect(()=>{
-        console.log(tokens?.accessToken);
         const getUser = async()=>{
-            await userAxios.get<UserProfile>(`${base_users_url}/${decodedToken?.id}`)
-            .then((response)=>{
-                console.log(response.data)
-            })
+            const userToken = localStorage.getItem('token');
+            if(userToken){
+                const userAxios = axios.create({
+                    headers: {
+                        Authorization: `Bearer ${userToken}`
+                    }
+                })
+                const decode: DecodedUser = jwtDecode(userToken);
+                if(decode.id){
+                    await userAxios.get<UserProfile>(`${base_users_url}/${decode.id}`)
+                    .then((response)=>{
+                        setUserProfile(response.data);
+                        console.log(response.data);
+                    })
+                }else{
+                    console.log('Authorization id not available')
+                }
+            }else{
+                console.log('Error getting token');
+            }
         };
+        
         getUser();
     },[]);
 
@@ -75,7 +87,7 @@ const Dashboard = () => {
                     <div className="profile-photo"></div>
                     <div className="name-tag">
                         <h2>Welcome</h2>
-                        <h4> Uchenna Agbu </h4>
+                        <h4> {`${userProfile?.firstName} ${userProfile?.lastName}`} </h4>
                     </div>
                 </div>
 

@@ -20,8 +20,9 @@ export const Form =()=>{
         if(userToken){
             const decode = jwtDecode(userToken);
             setDecodedToken(decode as DecodedUser);
+        }else{
+            console.log('Error getting token');
         }
-        console.log('Error getting token');
     },[]);
 
     const logout = ()=>{
