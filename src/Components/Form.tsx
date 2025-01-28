@@ -4,13 +4,25 @@
 // import { base_users_url } from "../URL";
 import { useNavigate } from "react-router-dom";
 import useGlobalState from "../State";
+import { useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
+import { DecodedUser } from "./FormObject";
 
 
 
 
 export const Form =()=>{
-    const { decodedToken, setloggedIn } = useGlobalState();
+    const { decodedToken, setDecodedToken, setloggedIn } = useGlobalState();
     const navigate = useNavigate();
+
+    useEffect(()=>{
+        const userToken = localStorage.getItem('token');
+        if(userToken){
+            const decode = jwtDecode(userToken);
+            setDecodedToken(decode as DecodedUser);
+        }
+        console.log('Error getting token');
+    },[]);
 
     const logout = ()=>{
         localStorage.removeItem('token');
@@ -72,6 +84,8 @@ export const Form =()=>{
                 <div className="add-user-section">
                         <div className="form">
                             <h2 style={{textAlign:'center'}}> Welcome to your page {decodedToken?.name} </h2>
+
+                            <button onClick={()=>navigate('/dashboard')}>Dashboard</button>
                         </div>
                 </div>
 

@@ -71,6 +71,23 @@ export interface ApiResponseUser {
     role: 'USER' | 'ADMIN' | 'INSTRUCTOR';
     createdAt: string;
     updatedAt: string;
-  }
+}
+
+
+export interface UserProfile {
+    id: number;
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+    emailVerified: boolean;
+    otp: string | null;
+    otpExpiry: string | null;
+    phoneNumber: string | null;
+    role: "USER" | "ADMIN" | "INSTRUCTOR";
+    createdAt: string;
+    updatedAt: string;
+}
+  
   
   

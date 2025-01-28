@@ -1,10 +1,42 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Profile from "./Profile";
+import useGlobalState from "../../State";
+import axios from "axios";
+import { UserProfile } from "../FormObject";
+import { base_users_url } from "../../URL";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+    const {userProfile, decodedToken, tokens, setloggedIn} = useGlobalState();
+    const navigate = useNavigate();
     const [profile, setProfile] = useState(true);
     const [courses, setCourses] = useState(false);
     const [Verification, setVerification] = useState(false);
+
+    const userAxios = axios.create({
+        headers: {
+            Authorization: `Bearer ${tokens?.accessToken}`
+        }
+    })
+
+    useEffect(()=>{
+        console.log(tokens?.accessToken);
+        const getUser = async()=>{
+            await userAxios.get<UserProfile>(`${base_users_url}/${decodedToken?.id}`)
+            .then((response)=>{
+                console.log(response.data)
+            })
+        };
+        getUser();
+    },[]);
+
+    const logout = ()=>{
+        localStorage.removeItem('token');
+        localStorage.setItem('isLoggedIn', 'false');
+        setloggedIn(false);
+        navigate('/login');
+    }
+
 
   return (
     <>
@@ -31,7 +63,10 @@ const Dashboard = () => {
                         <h4>Verification</h4>
                     </div>
 
-                    <div className="dash-option-select"><h4>Logout</h4></div>
+                    <div className="dash-option-select"
+                    onClick={logout}>
+                        <h4>Logout</h4>
+                    </div>
                 </div>
             </div>
 
