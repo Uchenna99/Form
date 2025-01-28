@@ -1,16 +1,16 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import './App.css'
 import { Form } from './Components/Form'
-import Dashboard from './pages/LandingPage'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import SignUp from './Components/signUp'
 import Login from './Components/Login'
 import useGlobalState from './State'
-import VerifyOtp from './Components/VerifyOtp'
+import VerifyOtp from './Components/VerifyEmailOtp'
 import { ToastContainer } from 'react-custom-alert'
 import { useEffect } from 'react'
 import { jwtDecode } from 'jwt-decode'
 import { DecodedUser } from './Components/FormObject'
+import Dashboard from './Components/Dashboard/Dashboard'
 
 
 function App() {
@@ -34,8 +34,8 @@ function App() {
         <Route path='/' element={loggedIn? <Form/> : <Navigate to={'/login'}/>} />
         <Route path='/signup' element={loggedIn? <Navigate to={'/'}/> : <SignUp/>}/>
         <Route path='/login' element={loggedIn? <Navigate to={'/'}/> : <Login/>} />
-        <Route path='/dash' element={loggedIn? <Dashboard/> : <Navigate to={'/login'}/>} />
         <Route path='/verifyotp' element={<VerifyOtp/>} />
+        <Route path='/dashboard' element={<Dashboard/>} />
       </Routes>
       {/* loggedIn? <Navigate to={'/'}/> : <VerifyOtp/> */}
     </GoogleOAuthProvider>

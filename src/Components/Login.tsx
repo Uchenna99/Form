@@ -25,9 +25,9 @@ const Login = () => {
                 setDecodedToken(userInfo as DecodedUser);
                 console.log(res.data);
                 localStorage.setItem('isLoggedIn', 'true');
-                localStorage.setItem('token', res.data.accessToken)
+                localStorage.setItem('token', res.data.accessToken);
                 setloggedIn(true);
-                navigate('/')
+                navigate('/');
             })
         } catch (error) {
             console.error('login failed:', error);

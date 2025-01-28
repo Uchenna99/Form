@@ -4,7 +4,7 @@ import axios from "axios";
 import { otp_verify_url } from "../URL";
 import { useNavigate } from "react-router-dom";
 
-interface SubmitProp{
+export interface SubmitProp{
     email: string;
     otp: string;
 }
