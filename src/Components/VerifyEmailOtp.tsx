@@ -18,28 +18,28 @@ const VerifyEmailOtp = ({switchUp}:Switch) => {
     const {setUserProfile, userProfile} = useGlobalState();
     const [otpInput, setOtpInput] = useState<string>('');
     
-        const getUser = async()=>{
-            const userToken = localStorage.getItem('token');
-            if(userToken){
-                const userAxios = axios.create({
-                    headers: {
-                        Authorization: `Bearer ${userToken}`
-                    }
-                })
-                const decode: DecodedUser = jwtDecode(userToken);
-                if(decode.id){
-                    await userAxios.get<UserProfile>(`${base_users_url}/${decode.id}`)
-                    .then((response)=>{
-                        setUserProfile(response.data);
-                        console.log(response.data);
-                    })
-                }else{
-                    console.log('Authorization id not available')
+    const getUser = async()=>{
+        const userToken = localStorage.getItem('token');
+        if(userToken){
+            const userAxios = axios.create({
+                headers: {
+                    Authorization: `Bearer ${userToken}`
                 }
+            })
+            const decode: DecodedUser = jwtDecode(userToken);
+            if(decode.id){
+                await userAxios.get<UserProfile>(`${base_users_url}/${decode.id}`)
+                .then((response)=>{
+                    setUserProfile(response.data);
+                    console.log(response.data);
+                })
             }else{
-                console.log('Error getting token');
+                console.log('Authorization id not available')
             }
-        };
+        }else{
+            console.log('Error getting token');
+        }
+    };
     
     const verifyData = {
         email: userProfile!.email,

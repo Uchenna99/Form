@@ -1,15 +1,26 @@
 import { useState } from "react";
 import useGlobalState from "../../State";
 import VerifyEmailOtp from "../VerifyEmailOtp";
+import axios from "axios";
+import { send_otp } from "../../URL";
 
 const VerificationPage = () => {
     const {userProfile} = useGlobalState();
     const [checked, setChecked] = useState('');
     const [stage, setStage] = useState('select');
 
-    const handleSelection = ()=>{
+    const otpData = {
+        email: userProfile?.email,
+        otpType: checked
+    }
+
+    const handleSelection = async ()=>{
         if(checked ==='email'){
-            setStage('emailOtp');
+            await axios.post(send_otp, otpData)
+            .then((response)=>{
+                console.log(response);
+                setStage('emailOtp');
+            })
         }else if(checked === 'sms'){
             setStage('smsOtp');
         }else{
