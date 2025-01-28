@@ -494,6 +494,14 @@ button#logout{
 
 .dash-option-select > h4{
     font-size: 18px;
+    position: relative;
+}
+
+#verified{
+    color: green;
+    position: absolute;
+    top: -3px;
+    right: -22px;
 }
 
 @keyframes dash-options {
@@ -510,6 +518,9 @@ button#logout{
     animation: dash-options2 150ms 1 forwards linear;
     cursor: pointer;
 }
+
+
+
 
 
 
@@ -533,6 +544,10 @@ button#logout{
     height: 100px;
     border-radius: 10px;
     border: 2px solid lightgray;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 0 5px 5px rgba(211, 211, 211, 0.448);
 }
 
 .name-tag{
@@ -562,10 +577,38 @@ button#logout{
 
 /* PROFILE */
 
-.profile-wrap{
+.gen-wrap{
     width: 100%;
     height: 100%;
     padding: 25px;
+}
+
+
+/* VERIFICATION */
+
+.verify-options{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-left: 25px;
+}
+
+.check-box-option{
+    width: 100%;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.verify-check-box{
+    width: 20px;
+    height: 20px;
+    border: 2px solid lightgray;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 

@@ -6,6 +6,9 @@ import { DecodedUser, UserProfile } from "../FormObject";
 import { base_users_url } from "../../URL";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import Courses from "./Courses";
+import VerificationPage from "./Verification";
+import { MdVerified } from "react-icons/md";
 
 const Dashboard = () => {
     const {userProfile, setUserProfile, setloggedIn} = useGlobalState();
@@ -72,7 +75,10 @@ const Dashboard = () => {
                     <div className="dash-option-select"
                     onClick={()=>{setVerification(true); setProfile(false); setCourses(false);}}
                     style={{animationName: Verification? 'dash-options':''}}>
-                        <h4>Verification</h4>
+                        <h4>
+                            Verification
+                            {userProfile?.emailVerified && <MdVerified id="verified"/>}
+                        </h4>
                     </div>
 
                     <div className="dash-option-select"
@@ -84,7 +90,10 @@ const Dashboard = () => {
 
             <div className="main-dash-area">
                 <div className="welcome-area">
-                    <div className="profile-photo"></div>
+                    <div className="profile-photo"
+                    style={{backgroundImage:`url(${userProfile?.profilePicture})`}}>
+                        {/* <img src={userProfile?.profilePicture} alt="" /> */}
+                    </div>
                     <div className="name-tag">
                         <h2>Welcome</h2>
                         <h4> {`${userProfile?.firstName} ${userProfile?.lastName}`} </h4>
@@ -93,6 +102,8 @@ const Dashboard = () => {
 
                 <div className="dash-details-display">
                     {profile && <Profile/>}
+                    {courses && <Courses/>}
+                    {Verification && <VerificationPage/> }
                 </div>
             </div>
         </div>

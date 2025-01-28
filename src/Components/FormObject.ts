@@ -84,6 +84,8 @@ export interface UserProfile {
     otp: string | null;
     otpExpiry: string | null;
     phoneNumber: string | null;
+    profilePicture: string;
+    googleId: string;
     role: "USER" | "ADMIN" | "INSTRUCTOR";
     createdAt: string;
     updatedAt: string;

@@ -2,9 +2,9 @@
 const Profile = () => {
   return (
     <>
-        <div className="profile-wrap"></div>
+        <div className="gen-wrap"><p>Profile</p></div>
     </>
   )
 }
 
-export default Profile
+export default Profile;
