@@ -16,8 +16,6 @@ interface StateProps{
     setloggedIn: (loggedIn: boolean)=>void;
     forminfo: FormData;
     setForminfo: (forminfo: FormData)=>void;
-    verifyEmail: string;
-    setVerifyEmail: (verifyEmail: string)=>void;
     activeUser: ApiResponseUser | null;
     setActiveUser: (activeUser: ApiResponseUser)=>void;
     userProfile: UserProfile | null;
@@ -37,8 +35,6 @@ const useGlobalState = create<StateProps>((set)=>({
     setloggedIn: (loggedIn: boolean)=> set({loggedIn}),
     forminfo: baseForm,
     setForminfo: (forminfo: FormData)=>set({forminfo}),
-    verifyEmail: '',
-    setVerifyEmail: (verifyEmail: string)=>set({verifyEmail}),
     activeUser: null,
     setActiveUser: (activeUser: ApiResponseUser)=>set({activeUser}),
     userProfile: null,

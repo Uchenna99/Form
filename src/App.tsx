@@ -5,7 +5,6 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 import SignUp from './Components/signUp'
 import Login from './Components/Login'
 import useGlobalState from './State'
-import VerifyOtp from './Components/VerifyEmailOtp'
 import { ToastContainer } from 'react-custom-alert'
 import { useEffect } from 'react'
 import { jwtDecode } from 'jwt-decode'
@@ -34,7 +33,6 @@ function App() {
         <Route path='/' element={loggedIn? <Form/> : <Navigate to={'/login'}/>} />
         <Route path='/signup' element={loggedIn? <Navigate to={'/'}/> : <SignUp/>}/>
         <Route path='/login' element={loggedIn? <Navigate to={'/'}/> : <Login/>} />
-        <Route path='/verifyotp' element={<VerifyOtp/>} />
         <Route path='/dashboard' element={<Dashboard/>} />
       </Routes>
       {/* loggedIn? <Navigate to={'/'}/> : <VerifyOtp/> */}

@@ -591,8 +591,17 @@ button#logout{
     height: fit-content;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding-left: 25px;
+    gap: 10px;
+    padding: 25px;
+    /* background-color: pink; */
+}
+
+.verify-options > h3{
+    margin-bottom: 40px;
+}
+
+.verify-options > p{
+    margin-bottom: 10px;
 }
 
 .check-box-option{
@@ -609,6 +618,28 @@ button#logout{
     border: 2px solid lightgray;
     border-radius: 5px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.checked{
+    width: 70%;
+    height: 70%;
+    background-color: green;
+    border-radius: 3px;
+}
+
+button#verify-btn{
+    width: fit-content;
+    margin-top: 25px;
+    cursor: pointer;
+}
+
+.wrap{
+    width: 100%;
+    height: fit-content;
+    display: flex;
 }
 
 

@@ -1,20 +1,84 @@
 import { useState } from "react";
+import useGlobalState from "../../State";
+import VerifyEmailOtp from "../VerifyEmailOtp";
 
 const VerificationPage = () => {
+    const {userProfile} = useGlobalState();
     const [checked, setChecked] = useState('');
+    const [stage, setStage] = useState('select');
+
+    const handleSelection = ()=>{
+        if(checked ==='email'){
+            setStage('emailOtp');
+        }else if(checked === 'sms'){
+            setStage('smsOtp');
+        }else{
+            alert('Please select a verification method');
+        }
+    };
 
   return (
     <>
-        <div className="verify-options">
-            <h3>Verification</h3>
-            <p>Please select a method of Verification</p>
+        {
+            userProfile?.emailVerified? 
+            <div className="verify-options">
+                <h3>Verification Section</h3>
 
-            <div className="check-box-option">
-                <div className="verify-check-box"
-                onClick={()=>setChecked('email')}></div>
-                <p>Email</p>
+                <p>Your account has been <span style={{color:'green'}}>verified</span></p>
             </div>
-        </div>
+
+            :
+
+            <div className="wrap">
+                {
+                stage === 'select'?
+                <div className="verify-options">
+                    <h3>Verification Section</h3>
+    
+                    <p>Please select a method of Verification</p>
+    
+                    <div className="check-box-option">
+                        <div className="verify-check-box"
+                        onClick={()=>setChecked('email')}>
+                            <div className="checked" style={{display: checked === 'email'? 'flex':'none'}}></div>
+                        </div>
+                        <p>Email</p>
+                    </div>
+    
+                    <div className="check-box-option">
+                        <div className="verify-check-box"
+                        onClick={()=>setChecked('sms')}>
+                            <div className="checked" style={{display: checked === 'sms'? 'flex':'none'}}></div>
+                        </div>
+                        <p>SMS</p>
+                    </div>
+    
+                    <button id="verify-btn" onClick={handleSelection}>Verify</button>
+                </div>
+                :
+                stage === 'emailOtp'?
+                <div className="verify-options">
+                    <h3>Verification Section</h3>
+                    <VerifyEmailOtp switchUp={()=>setStage('success')}/>
+                </div>
+                :
+                stage === 'smsOtp'?
+                <div className="verify-options">
+                    <h3>Verification Section</h3>
+                    <p>Sorry, sms verification is not available right now.</p>
+                    <button onClick={()=>setStage('select')}>Return</button>
+                </div>
+                :
+                stage === 'success'?
+                <div className="verify-options">
+                    <h3>Verification Section</h3>
+                    <p>Your Verification was <span style={{color:'green'}}>successful</span></p>
+                </div>
+                :
+                <div className="verify-options"><p>Error, please refresh page</p></div>
+                }
+            </div>
+        }
     </>
   )
 }

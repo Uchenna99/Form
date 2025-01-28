@@ -18,15 +18,14 @@ import useGlobalState from '../State';
 
 const SignUp = () => {
   const navigate = useNavigate();
-    const { forminfo, setForminfo, setVerifyEmail} = useGlobalState();    
+    const { forminfo, setForminfo} = useGlobalState();    
 
     const handleSubmit = async () => {        
         try {
           await axios.post(create_user_url, forminfo)
           .then((res) => {
-            setVerifyEmail(res.data.user.email);
             console.log(res.data);
-            navigate('/verifyotp');
+            navigate('/login');
             alert(res.data.message);
           })
         } catch (error: any) {
