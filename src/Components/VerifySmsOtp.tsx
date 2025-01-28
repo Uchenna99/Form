@@ -6,12 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { SubmitProp } from "./VerifyEmailOtp";
 
 const VerifySmsOtp = () => {
-    const {verifyEmail} = useGlobalState();
+    const {} = useGlobalState();
     const navigate = useNavigate();
     const [otpInput, setOtpInput] = useState('');
 
     const verifyData = {
-        email: verifyEmail,
+        // email: verifyEmail,
         otp: otpInput
     }
 
@@ -44,7 +44,7 @@ const VerifySmsOtp = () => {
                     {/* {inpError && <p>Numbers only</p>} */}
                 </div>
 
-                <button onClick={()=>handleVerify(verifyData)}>Verify</button>
+                <button >Verify</button>
 
                 <p style={{color:'red', fontSize:'13px'}}
                 >The OTP is valid for 10 minutes only</p>
