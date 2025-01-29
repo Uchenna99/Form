@@ -11,10 +11,10 @@ const Profile = () => {
   const [verified, setVerified] = useState(false);
   const [confirmotp, setConfirmOtp] = useState(false);
 
-  const [firstName, setfirstName] = useState('');
-  const [lastName, setlastName] = useState('');
-  const [email, setemail] = useState('');
-  const [phoneNumber, setphoneNumber] = useState('');
+  const [firstName, setfirstName] = useState(userProfile?.firstName);
+  const [lastName, setlastName] = useState(userProfile?.lastName);
+  const [email, setemail] = useState(userProfile?.email);
+  const [phoneNumber, setphoneNumber] = useState(userProfile?.phoneNumber);
 
   const userAxios = axios.create({
     headers: {
@@ -47,7 +47,8 @@ const Profile = () => {
     await userAxios.patch(`${base_users_url}/${userProfile?.id}`, patch)
     .then((response)=>{
       setUserProfile(response.data);
-      alert('Changes saved successfully')
+      alert('Changes saved successfully');
+      setConfirmOtp(false);
     })
   };
 
@@ -82,14 +83,14 @@ const Profile = () => {
 
             <div className="profile-input">
               <label htmlFor="email">Email</label>
-              <input id="email" type="text" value={email}
+              <input id="email" type="email" value={email}
               onChange={(e)=>{setemail(e.target.value)}} 
               placeholder={userProfile?.email} />
             </div>
 
             <div className="profile-input">
               <label htmlFor="phoneNumber">Phone</label>
-              <input id="phoneNumber" type="text" value={phoneNumber}
+              <input id="phoneNumber" type="text" value={phoneNumber!}
               onChange={(e)=>{setphoneNumber(e.target.value)}} 
               placeholder={userProfile?.phoneNumber? userProfile.phoneNumber:''} />
             </div>
