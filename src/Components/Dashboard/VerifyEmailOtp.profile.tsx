@@ -3,7 +3,7 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import useGlobalState from "../../State";
 import { DecodedUser, UserProfile } from "../FormObject";
-import { base_users_url, otp_verify_url } from "../../URL";
+import { base_users_url, otp_verify_url, verify_otp } from "../../URL";
 
 export interface SubmitProp{
     email: string;
@@ -50,7 +50,7 @@ const ProfileVerifyEmailOtp = ({switchUp}:Switch) => {
         if(otpInput.length !== 6){
             alert('Invalid OTP');
         }
-        await axios.post(otp_verify_url, data)
+        await axios.post(verify_otp, data)
         .then((response)=>{
             console.log(response.data);
             // alert(response.data.message);

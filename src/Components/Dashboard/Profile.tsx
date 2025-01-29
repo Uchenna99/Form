@@ -11,10 +11,10 @@ const Profile = () => {
   const [verified, setVerified] = useState(false);
   const [confirmotp, setConfirmOtp] = useState(false);
 
-  const [firstName, setfirstName] = useState(false);
-  const [lastName, setlastName] = useState(false);
-  const [email, setemail] = useState(false);
-  const [phoneNumber, setphoneNumber] = useState(false);
+  const [firstName, setfirstName] = useState('');
+  const [lastName, setlastName] = useState('');
+  const [email, setemail] = useState('');
+  const [phoneNumber, setphoneNumber] = useState('');
 
   const userAxios = axios.create({
     headers: {
@@ -68,14 +68,37 @@ const Profile = () => {
 
             <div className="profile-input">
               <label htmlFor="firstName">First name</label>
-              <input id="firstName" type="text" value={userProfile?.firstName} />
+              <input id="firstName" type="text" value={firstName} 
+              onChange={(e)=>{setfirstName(e.target.value)}} 
+              placeholder={userProfile?.firstName}/>
+            </div>
+
+            <div className="profile-input">
+              <label htmlFor="lastName">Last name</label>
+              <input id="lastName" type="text" value={lastName}
+              onChange={(e)=>{setlastName(e.target.value)}} 
+              placeholder={userProfile?.lastName} />
+            </div>
+
+            <div className="profile-input">
+              <label htmlFor="email">Email</label>
+              <input id="email" type="text" value={email}
+              onChange={(e)=>{setemail(e.target.value)}} 
+              placeholder={userProfile?.email} />
+            </div>
+
+            <div className="profile-input">
+              <label htmlFor="phoneNumber">Phone</label>
+              <input id="phoneNumber" type="text" value={phoneNumber}
+              onChange={(e)=>{setphoneNumber(e.target.value)}} 
+              placeholder={userProfile?.phoneNumber? userProfile.phoneNumber:''} />
             </div>
 
             {
               verified? 
-              <button onClick={handleChanges}>Confirm changes</button>
+              <button id="change-btn" onClick={handleChanges}>Confirm changes</button>
               :
-              <button onClick={handleSave}>Save changes</button>
+              <button id="change-btn" onClick={handleSave}>Save changes</button>
             }
           </div>
         }

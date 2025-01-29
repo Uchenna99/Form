@@ -591,12 +591,17 @@ button#logout{
     height: fit-content;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
 }
 
 .profile-input > input{
     height: 35px;
     width: 400px;
+}
+
+button#change-btn{
+    width: fit-content;
+    margin-top: 30px;
 }
 
 

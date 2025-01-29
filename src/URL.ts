@@ -8,3 +8,5 @@ export const create_user_url = 'http://localhost:3010/api/v1/login/create';
 export const otp_verify_url = 'http://localhost:3010/api/v1/login/verify'
 
 export const send_otp = 'http://localhost:3010/api/v1/login/verify-sendOtp'
+
+export const verify_otp = 'http://localhost:3010/api/v1/login/verify-update'
