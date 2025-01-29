@@ -581,6 +581,22 @@ button#logout{
     width: 100%;
     height: 100%;
     padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.profile-input{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profile-input > input{
+    height: 35px;
+    width: 400px;
 }
 
 

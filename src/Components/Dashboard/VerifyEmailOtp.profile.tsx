@@ -1,9 +1,9 @@
 import { useState } from "react"
-import useGlobalState from "../State";
 import axios from "axios";
-import { base_users_url, otp_verify_url } from "../URL";
-import { DecodedUser, UserProfile } from "./FormObject";
 import { jwtDecode } from "jwt-decode";
+import useGlobalState from "../../State";
+import { DecodedUser, UserProfile } from "../FormObject";
+import { base_users_url, otp_verify_url } from "../../URL";
 
 export interface SubmitProp{
     email: string;
@@ -14,7 +14,7 @@ interface Switch{
     switchUp: ()=>void;
 }
 
-const VerifyEmailOtp = ({switchUp}:Switch) => {
+const ProfileVerifyEmailOtp = ({switchUp}:Switch) => {
     const {setUserProfile, userProfile} = useGlobalState();
     const [otpInput, setOtpInput] = useState<string>('');
     
@@ -52,8 +52,7 @@ const VerifyEmailOtp = ({switchUp}:Switch) => {
         }
         await axios.post(otp_verify_url, data)
         .then((response)=>{
-            // setActiveUser(response.data.user);
-            console.log(response);
+            console.log(response.data);
             // alert(response.data.message);
             getUser();
             switchUp();
@@ -88,4 +87,4 @@ const VerifyEmailOtp = ({switchUp}:Switch) => {
   )
 }
 
-export default VerifyEmailOtp;
+export default ProfileVerifyEmailOtp;

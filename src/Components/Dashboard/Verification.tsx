@@ -18,7 +18,7 @@ const VerificationPage = () => {
         if(checked ==='email'){
             await axios.post(send_otp, otpData)
             .then((response)=>{
-                console.log(response);
+                console.log(response.data);
                 setStage('emailOtp');
             })
         }else if(checked === 'sms'){
