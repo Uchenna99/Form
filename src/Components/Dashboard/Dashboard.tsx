@@ -9,6 +9,7 @@ import { jwtDecode } from "jwt-decode";
 import Courses from "./Courses";
 import VerificationPage from "./Verification";
 import { MdVerified } from "react-icons/md";
+import SeedTask from "./SeedTask";
 
 const Dashboard = () => {
     const {userProfile, setUserProfile, setloggedIn} = useGlobalState();
@@ -16,6 +17,7 @@ const Dashboard = () => {
     const [profile, setProfile] = useState(true);
     const [courses, setCourses] = useState(false);
     const [Verification, setVerification] = useState(false);
+    const [seed, setSeed] = useState(false);
 
     
     useEffect(()=>{
@@ -61,24 +63,30 @@ const Dashboard = () => {
 
                 <div className="dash-options">
                     <div className="dash-option-select" 
-                    onClick={()=>{setProfile(true); setCourses(false); setVerification(false);}}
+                    onClick={()=>{setProfile(true); setCourses(false); setVerification(false); setSeed(false);}}
                     style={{animationName: profile? 'dash-options':''}}>
                         <h4>Profile</h4>
                     </div>
 
                     <div className="dash-option-select"
-                    onClick={()=>{setCourses(true); setProfile(false); setVerification(false);}}
+                    onClick={()=>{setCourses(true); setProfile(false); setVerification(false); setSeed(false);}}
                     style={{animationName: courses? 'dash-options':''}}>
                         <h4>Courses</h4>
                     </div>
 
                     <div className="dash-option-select"
-                    onClick={()=>{setVerification(true); setProfile(false); setCourses(false);}}
+                    onClick={()=>{setVerification(true); setProfile(false); setCourses(false); setSeed(false);}}
                     style={{animationName: Verification? 'dash-options':''}}>
                         <h4>
                             Verification
                             {userProfile?.emailVerified && <MdVerified id="verified"/>}
                         </h4>
+                    </div>
+
+                    <div className="dash-option-select"
+                    onClick={()=>{setSeed(true); setCourses(false); setProfile(false); setVerification(false);}}
+                    style={{animationName: seed? 'dash-options':''}}>
+                        <h4>Seed Task</h4>
                     </div>
 
                     <div className="dash-option-select"
@@ -104,6 +112,7 @@ const Dashboard = () => {
                     {profile && <Profile/>}
                     {courses && <Courses/>}
                     {Verification && <VerificationPage/> }
+                    {seed && <SeedTask/>}
                 </div>
             </div>
         </div>
